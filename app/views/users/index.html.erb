@@ -1,0 +1,29 @@
+<h1>Welcome!</h1>
+
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <p id="error"><%= error %></p>
+  <% end %>
+<% end %>
+
+<form class="" action="/users" method="post">
+  Register<br>
+  <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+  <input type="text" placeholder="first_name" name="user[first_name]" value=""><br>
+  <input type="text" placeholder="last_name" name="user[last_name]" value=""><br>
+  <input type="text" placeholder="email" name="user[email]" value=""><br>
+  <input type="text" placeholder="city" name="user[city]" value=""><br>
+  <input type="text" placeholder="state" name="user[state]" value=""><br>
+  <input type="text" placeholder="password" name="user[password]" value=""><br>
+  <input type="text" placeholder="password_confirmation" name="user[password_confirmation]" value=""><br>
+  *password should be at least 8 carachters<br>
+  <input type="submit" name="" value="Register"><br>
+</form>
+
+<form class="" action="/users/login" method="post">
+  <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+  Login<br>
+  <input type="text" placeholder="email" name="user[email]" value=""><br>
+  <input type="text" placeholder="password" name="user[password]" value=""><br>
+  <input type="submit" name="" value="Login">
+</form>

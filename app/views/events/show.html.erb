@@ -1,0 +1,44 @@
+<a href="/">Events Dashboard</a> | <a href="/users/logout">Logout</a>
+<h1><%= @event.name %></h1>
+
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <p id="error"><%= error %></p>
+  <% end %>
+<% end %>
+<div class="event_info">
+  <h4>Host: <%= @event.user.first_name %>  <%= @event.user.last_name %></h4>
+  <h4>Date: <%= @event.date.strftime("%m/%d/%Y") %></h4>
+  <h4>Location: <%= @event.location %> , <%= @event.state %></h4>
+  <h4>People who are joining the event: <%= @event.users.count %></h4>
+</div>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Location</th>
+    <th>State</th>
+  </tr>
+  <% @event.users.each do |atendee| %>
+  <tr>
+    <td><%= atendee.first_name %> <%=  atendee.last_name %></td>
+    <td> <%=  atendee.city %> </td>
+    <td> <%=  atendee.state %> </td>
+  </tr>
+  <% end %>
+</table>
+
+<h2>Discussion about this event:</h2>
+<div style="border:1px solid black;height:300px;width:450px;overflow-y:hidden;overflow-x:scroll;">
+  <% @event.comments.each do |comment| %>
+    <h4><%= comment.user.first_name %> says:</h4>
+    <p><%= comment.content %></p>
+    <p>------------------------</p>
+  <% end %>
+</div>
+<h3>Add Comment:</h3>
+<form class="" action="/events/<%= @event.id %>/comments" method="post">
+  <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token %>">
+  <textarea name="content" rows="8" cols="80"></textarea>
+  <input type="submit" name="" value="Submit Comment">
+</form>
